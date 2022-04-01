@@ -53,13 +53,13 @@
     <UnityVersion>2020.3.19f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Assets\MoveEnemy.cs" />
-    <Compile Include="Assets\Door.cs" />
-    <Compile Include="Assets\Enemy.cs" />
-    <Compile Include="Assets\Alarm.cs" />
-    <Compile Include="Assets\Movement.cs" />
-    <Compile Include="Assets\Shoot.cs" />
-    <Compile Include="Assets\Particle.cs" />
+    <Compile Include="Assets\Scripts\Particle.cs" />
+    <Compile Include="Assets\Scripts\EnemyMovement.cs" />
+    <Compile Include="Assets\Scripts\Shoot.cs" />
+    <Compile Include="Assets\Scripts\Movement.cs" />
+    <Compile Include="Assets\Scripts\Alarm.cs" />
+    <Compile Include="Assets\Scripts\Door.cs" />
+    <Compile Include="Assets\Scripts\Enemy.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
