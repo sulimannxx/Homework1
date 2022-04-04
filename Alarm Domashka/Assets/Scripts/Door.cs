@@ -2,18 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Enemy))]
+[RequireComponent(typeof(SpriteRenderer))]
+
 public class Door : MonoBehaviour
 {
-    [SerializeField] private Sprite _openedDoor;
-    [SerializeField] private Sprite _closedDoor;
+    [SerializeField] private Sprite _opened;
+    [SerializeField] private Sprite _closed;
     [SerializeField] private Alarm _alarm;
+    [SerializeField ]private SpriteRenderer _doorSprite;
 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out Enemy enemy))
         {
-            gameObject.GetComponent<SpriteRenderer>().sprite = _openedDoor;
+            _doorSprite.sprite = _opened;
             _alarm.SetAlarm(true);
         }
     }
@@ -22,7 +26,7 @@ public class Door : MonoBehaviour
     {
         if (collision.TryGetComponent(out Enemy enemy))
         {
-            gameObject.GetComponent<SpriteRenderer>().sprite = _closedDoor;
+            _doorSprite.sprite = _closed;
             _alarm.SetAlarm(false);
         }
     }

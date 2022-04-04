@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveEnemy : MonoBehaviour
+public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
     [SerializeField] private float _speed;

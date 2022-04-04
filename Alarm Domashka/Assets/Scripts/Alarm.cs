@@ -8,7 +8,6 @@ using DG.Tweening;
 
 public class Alarm : MonoBehaviour
 {
-
     private AudioSource _source;
     private SpriteRenderer _spriteRenderer;
     private bool _alarmVolumeIncreasing;
@@ -24,27 +23,15 @@ public class Alarm : MonoBehaviour
 
     public IEnumerator AlarmSound()
     {
-        while (_isWorking == true)
+        while (_alarmVolumeIncreasing == true)
         {
-            if (_alarmVolumeIncreasing == true)
-            {
-                _source.volume += Time.deltaTime;
+            _source.volume += Time.deltaTime;
+            yield return null;
+        }
 
-                if (_source.volume == 1)
-                {
-                    _alarmVolumeIncreasing = false;
-                }
-            }
-
-            if (_alarmVolumeIncreasing == false)
-            {
-                _source.volume -= Time.deltaTime;
-
-                if (_source.volume == 0)
-                {
-                    _alarmVolumeIncreasing = true;
-                }
-            }
+        while (_alarmVolumeIncreasing == false)
+        {
+            _source.volume -= Time.deltaTime;
             yield return null;
         }
     }
@@ -55,15 +42,15 @@ public class Alarm : MonoBehaviour
 
         if (_isWorking)
         {
+            _alarmVolumeIncreasing = true;
             PlaySound();
             ChangeColor();
             StartCoroutine(AlarmSound());
         }
         else
         {
-            StopSound();
             ChangeColor();
-            StopCoroutine(AlarmSound());
+            _alarmVolumeIncreasing = false;
         }
     }
 

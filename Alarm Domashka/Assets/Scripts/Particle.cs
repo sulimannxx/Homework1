@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
+
 public class Particle : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _spark;
