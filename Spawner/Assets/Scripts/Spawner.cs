@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Sphere))]
@@ -22,7 +20,7 @@ public class Spawner : MonoBehaviour
 
     private void SpawnSphere()
     {
-        if (_counter > 2)
+        if (_counter > _spawnersAmount - 1)
         {
             _counter = 0;
         }
