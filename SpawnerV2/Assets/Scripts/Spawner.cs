@@ -2,30 +2,30 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    private const int _spawnersAmount = 3;
     private const int _spawnerDefaultIndex = 0;
 
     [SerializeField] private Sphere _sphere;
 
     private SpawnPoint[] _spawnPoints;
-    private string _spawnMethodName = "SpawnSphere";
-    private float _spawnTime = 2;
+    private string _spawnMethodName = nameof(SpawnSphere);
+    private float _spawnDelay = 2;
     private int _counter = _spawnerDefaultIndex;
+    private int _spawnPointsAmount => _spawnPoints.Length;
 
     private void Start()
     {
         _spawnPoints = GetComponentsInChildren<SpawnPoint>();
-        InvokeRepeating(_spawnMethodName, _spawnTime, _spawnTime);
+        InvokeRepeating(_spawnMethodName, _spawnDelay, _spawnDelay);
     }
 
     private void SpawnSphere()
     {
-        if (_counter > _spawnersAmount - 1)
+        if (_counter > _spawnPointsAmount - 1)
         {
             _counter = _spawnerDefaultIndex;
         }
 
-        Instantiate(_sphere, new Vector3(_spawnPoints[_counter].transform.position.x, _spawnPoints[_counter].transform.position.y, _spawnPoints[_counter].transform.position.z), Quaternion.identity);
+        Instantiate(_sphere, _spawnPoints[_counter].transform.position, Quaternion.identity);
         IncrementCounter();
     }
 
