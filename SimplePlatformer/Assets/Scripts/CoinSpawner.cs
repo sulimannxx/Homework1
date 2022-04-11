@@ -4,12 +4,11 @@ public class CoinSpawner : MonoBehaviour
 {
    [SerializeField] private Coin _coin;
 
-    private string _spawnMethodName = nameof(SpawnCoin);
     private float _spawnDelay = 2;
 
     private void Start()
     {
-        InvokeRepeating(_spawnMethodName, _spawnDelay, _spawnDelay);
+        InvokeRepeating(nameof(SpawnCoin), _spawnDelay, _spawnDelay);
     }
 
     private void SpawnCoin()
