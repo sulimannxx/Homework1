@@ -124,8 +124,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _floorChecker: {fileID: 8457209173484205097}
-  _player: {fileID: 0}
-  _deadPlayer: {fileID: 0}
+  _player: {fileID: 3263028007291908676, guid: d5de3370e5dbcdf4098c61745d694c7e, type: 3}
+  _deadPlayer: {fileID: 5287782274081713272, guid: 4fa88d2383a843f46954f82e671220f8, type: 3}
+  _animationController: {fileID: -6304738028137066304, guid: d5de3370e5dbcdf4098c61745d694c7e, type: 3}
 --- !u!1 &8457209173484205097
 GameObject:
   m_ObjectHideFlags: 0

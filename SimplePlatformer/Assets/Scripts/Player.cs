@@ -1,27 +1,24 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(PlayerAnimationController))]
 
 public class Player : MonoBehaviour
 {
     public bool IsDead { get; private set; }
     public int Coins { get; private set; }
 
-    private Animator _playerAnimator;
+    private PlayerAnimationController _animationController;
 
     private void Start()
     {
-        _playerAnimator = GetComponent<Animator>();
+        _animationController = GetComponent<PlayerAnimationController>();
     }
 
-    public void SetDead()
+    public void Die()
     {
         IsDead = true;
-    }
-
-    public void SetAnimatorInactive()
-    {
-        _playerAnimator.enabled = false;
+        _animationController.SetAnimatorInactive();
     }
 
     public void AddCoin()
