@@ -27,6 +27,6 @@ public class Player : MonoBehaviour
     public void AddCoin()
     {
         Coins += 1;
-        Debug.Log(Coins);
+        Debug.Log("Total coins: " + Coins);
     }
 }

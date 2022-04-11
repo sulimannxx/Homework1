@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CoinSpawner : MonoBehaviour
 {
-   [SerializeField] private GameObject _coin;
+   [SerializeField] private Coin _coin;
 
     private string _spawnMethodName = nameof(SpawnCoin);
     private float _spawnDelay = 2;

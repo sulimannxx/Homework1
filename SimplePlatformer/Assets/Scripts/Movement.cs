@@ -1,6 +1,8 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Player))]
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Animator))]
 
 public class Movement : MonoBehaviour
 {
