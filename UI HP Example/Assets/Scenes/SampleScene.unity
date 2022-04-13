@@ -607,6 +607,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b84866764ab726f4693ffb5d560b48c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _healButton: {fileID: 1604914341}
+  _hurtButton: {fileID: 2001332181}
+  _healthBar: {fileID: 100138568}
 --- !u!4 &984085436
 Transform:
   m_ObjectHideFlags: 0
@@ -669,7 +672,6 @@ GameObject:
   - component: {fileID: 1604914343}
   - component: {fileID: 1604914342}
   - component: {fileID: 1604914341}
-  - component: {fileID: 1604914340}
   - component: {fileID: 1604914339}
   m_Layer: 0
   m_Name: HealButton
@@ -709,19 +711,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c520d17fc025a2447984f1067c0b0b45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1604914340
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1604914337}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b54201a4e897fe041b61b83d9232d81d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _player: {fileID: 984085435}
 --- !u!114 &1604914341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -766,9 +755,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1604914340}
+      - m_Target: {fileID: 984085434}
         m_TargetAssemblyTypeName: Button, Assembly-CSharp
-        m_MethodName: ChangeHpValue
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1044,9 +1033,8 @@ GameObject:
   - component: {fileID: 2001332179}
   - component: {fileID: 2001332184}
   - component: {fileID: 2001332183}
-  - component: {fileID: 2001332182}
-  - component: {fileID: 2001332181}
   - component: {fileID: 2001332180}
+  - component: {fileID: 2001332181}
   m_Layer: 0
   m_Name: HurtButton
   m_TagString: Untagged
@@ -1094,19 +1082,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 2001332178}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b54201a4e897fe041b61b83d9232d81d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _player: {fileID: 984085435}
---- !u!114 &2001332182
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2001332178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
@@ -1141,19 +1116,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2001332183}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2001332181}
-        m_TargetAssemblyTypeName: Button, Assembly-CSharp
-        m_MethodName: ChangeHpValue
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &2001332183
 MonoBehaviour:
   m_ObjectHideFlags: 0
