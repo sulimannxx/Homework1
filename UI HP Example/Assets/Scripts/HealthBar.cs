@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 [RequireComponent(typeof(Slider))]
 
@@ -12,15 +13,27 @@ public class HealthBar : MonoBehaviour
 
     private Slider _slider;
     private float _sliderSpeed = 7f;
+    private float _sliderDefaultValue = 50.0f;
 
     private void Start()
     {
         _slider = GetComponent<Slider>();
+        _slider.value = _sliderDefaultValue;
     }
 
-    private void Update()
+    public void ChangeHealthBarValue()
     {
-        _slider.value = Mathf.MoveTowards(_slider.value, _player.Health, _sliderSpeed * Time.deltaTime);
+        StartCoroutine(ChangeSliderValue());
+    }
+
+    private IEnumerator ChangeSliderValue()
+    {
+        while (_slider.value != _player.Health)
+        {
+            _slider.value = Mathf.MoveTowards(_slider.value, _player.Health, _sliderSpeed * Time.deltaTime);
+            yield return null;
+        }
+        yield break; 
     }
 
     public void ChangeSliderColor()
