@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GameController : MonoBehaviour
+public class WaveController : MonoBehaviour
 {
     public static int GameWave = 1;
 }

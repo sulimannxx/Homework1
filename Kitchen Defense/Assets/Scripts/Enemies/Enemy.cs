@@ -8,6 +8,7 @@ public abstract class Enemy : MonoBehaviour
     protected float BaseDamage = 1;
     protected int BaseReward = 1;
     protected Player _target;
+
     public abstract event UnityAction<Enemy> EnemyIsDead;
 
     public abstract void ApplyDamage(float damage);

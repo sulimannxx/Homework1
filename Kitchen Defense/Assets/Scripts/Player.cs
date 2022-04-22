@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -13,12 +12,22 @@ public class Player : MonoBehaviour
     private Weapon _currentWeapon;
     private Animator _animator;
     private string _playerAttackAnimation = "Attack";
-    private float _health = 5;
+    private float _maxHealth = 5;
+    private float _currentHealth;
 
     public float OrangeDamageSkillLevel => _orangeDamageSkillLevel;
+    public float MaxHealth => _maxHealth;
+    public float CurrentHealth => _currentHealth;
+
     public event UnityAction PlayerIsDead;
+    public event UnityAction HealthIsChanged;
 
     public int Money { get; private set; }
+
+    private void Awake()
+    {
+        _currentHealth = _maxHealth;
+    }
 
     private void Start()
     {
@@ -37,10 +46,12 @@ public class Player : MonoBehaviour
 
     public void ApplyDamage(float damage)
     {
-        _health -= damage;
+        _currentHealth -= damage;
+        HealthIsChanged?.Invoke();
 
-        if (_health <= 0)
+        if (_currentHealth <= 0)
         {
+            PlayerIsDead?.Invoke();
             Destroy(gameObject);
         }
     }

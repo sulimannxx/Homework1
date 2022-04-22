@@ -199,6 +199,8 @@ MonoBehaviour:
   _transitions:
   - {fileID: 2021924773121011924}
   _speed: 5
+  _targetX: -2
+  _targetY: 0.8
 --- !u!114 &2021924773121011924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,6 +214,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targetState: {fileID: -7424207051378690030}
+  _targetX: -2
+  _targetY: 0.8
 --- !u!114 &-7424207051378690030
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
@@ -7,13 +5,21 @@ using UnityEngine;
 public class MoveState : State
 {
     [SerializeField] private float _speed;
+    [SerializeField] private float _targetX;
+    [SerializeField] private float _targetY;
 
     private string _animationMoveState = "Move";
     private Animator _animator;
+    private Vector2 _targetPosition;
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+    }
+
+    private void Start()
+    {
+        _targetPosition = new Vector2(Target.transform.position.x - _targetX, Target.transform.position.y - _targetY);
     }
 
     private void Update()
@@ -25,7 +31,7 @@ public class MoveState : State
 
         if (Target != null)
         {
-            transform.position = Vector2.MoveTowards(transform.position, Target.transform.position, _speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, _targetPosition, _speed * Time.deltaTime);
         }
     }
 

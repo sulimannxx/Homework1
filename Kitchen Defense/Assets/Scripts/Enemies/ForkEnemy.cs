@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(Animator))]
+
 public class ForkEnemy : Enemy
 {
     [SerializeField] private Player _player;
@@ -9,6 +11,8 @@ public class ForkEnemy : Enemy
     private float _speedModifyer = 3;
     private float _damage;
     private float _health;
+    private Animator _animator;
+    private string _animationWinState = "Win";
 
     protected float Speed;
     protected float Damage;
@@ -18,6 +22,7 @@ public class ForkEnemy : Enemy
 
     private void Awake()
     {
+        _animator = GetComponent<Animator>();
         _health = BaseHealth;
         _damage = BaseDamage;
         _speed = BaseSpeed * _speedModifyer;
@@ -49,12 +54,12 @@ public class ForkEnemy : Enemy
 
     public override int GetReward()
     {
-        return EnemyReward += BaseReward * GameController.GameWave;
+        return EnemyReward += BaseReward * WaveController.GameWave;
     }
 
     public void OnPlayerDead()
     {
-        
+        _animator.Play(_animationWinState);
     }
 
 }

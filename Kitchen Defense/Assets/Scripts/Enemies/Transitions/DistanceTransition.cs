@@ -1,15 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DistanceTransition : Transition
 {
+    [SerializeField] private float _targetX;
+    [SerializeField] private float _targetY;
+
     private float _transitionRange;
     private float _minValueDelta = 0;
     private float _maxValueDelta = 0.5f;
+    private Vector2 _targetPosition;
 
     private void Start()
     {
+        _targetPosition = new Vector2(Target.transform.position.x - _targetX, Target.transform.position.y - _targetY);
         _transitionRange += Random.Range(_minValueDelta, _maxValueDelta);
     }
 
@@ -17,7 +20,7 @@ public class DistanceTransition : Transition
     {
         if (Target != null)
         {
-            if (Vector2.Distance(transform.position, Target.transform.position) < _transitionRange)
+            if (Vector2.Distance(transform.position, _targetPosition) < _transitionRange)
             {
                 NeedToTransit = true;
             }
