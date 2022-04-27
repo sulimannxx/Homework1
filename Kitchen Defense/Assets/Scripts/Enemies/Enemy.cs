@@ -10,9 +10,14 @@ public abstract class Enemy : MonoBehaviour
     protected Player _target;
 
     public abstract event UnityAction<Enemy> EnemyIsDead;
+    public abstract event UnityAction<Enemy> EnemyIsHit;
+    public float MaxHealth { get; protected set; }
+    public float CurrentHealth { get; protected set; }
+    public SpriteRenderer EnemySprite { get; protected set; }
 
     public abstract void ApplyDamage(float damage);
     public abstract Player GetTarget();
     public abstract void Init(Player player);
     public abstract int GetReward();
+    public abstract float GetHealth();
 }

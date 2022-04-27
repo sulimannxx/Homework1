@@ -7,7 +7,7 @@ public abstract class State : MonoBehaviour
 
     protected Player Target { get; private set; }
 
-    public void Enter(Player target)
+    public void Enter(Player target, Enemy enemy)
     {
         if (!enabled)
         {
@@ -17,7 +17,7 @@ public abstract class State : MonoBehaviour
             foreach (var transition in _transitions)
             {
                 transition.enabled = true;
-                transition.Init(Target);
+                transition.Init(Target, enemy);
             }
         }
     }
