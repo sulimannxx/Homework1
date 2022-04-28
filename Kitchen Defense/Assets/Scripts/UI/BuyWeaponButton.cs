@@ -17,7 +17,7 @@ public class BuyWeaponButton : MonoBehaviour
 
     private void Start()
     {
-        _weapon.SetAsBought(false);
+        _weapon.Bought(false);
         RecountIfPlayerHasEnoughMoney();
     }
 
@@ -26,7 +26,7 @@ public class BuyWeaponButton : MonoBehaviour
         if (_player.Money >= _weaponPrice && _weapon.IsBought == false)
         {
             _player.AddWeaponToInventory(_weapon, _weaponPrice);
-            _weapon.SetAsBought(true);
+            _weapon.Bought(true);
         }       
     }
 

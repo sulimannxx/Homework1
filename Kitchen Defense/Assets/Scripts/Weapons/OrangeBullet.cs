@@ -28,8 +28,7 @@ public class OrangeBullet : OrangeWeapon
 
     private IEnumerator BulletLifeTime()
     {
-        yield return new WaitForSeconds(5);
-        Destroy(gameObject);
-        StopCoroutine(BulletLifeTime());
+        Destroy(gameObject, 5f);
+        yield return null;
     }
 }

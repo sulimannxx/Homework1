@@ -19,8 +19,8 @@ public class StoneWeapon : Weapon
         Instantiate(_bullet, _player.transform.position, Quaternion.identity);
     }
 
-    public override bool SetAsBought(bool state)
+    public override bool Bought(bool state)
     {
-        return IsAlreadyBought = state;
+        return IsBought = state;
     }
 }
