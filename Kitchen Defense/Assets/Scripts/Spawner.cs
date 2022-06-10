@@ -3,66 +3,66 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private List<Wave> _waves;
     [SerializeField] private Transform _spawnPoint;
     [SerializeField] private Player _player;
+    [SerializeField] private WaveController _waveController;
+    [SerializeField] private Wave _currentWave;
 
-    private Wave _currentWave;
-    private int _currentWaveNumber = 0;
+    private List<GameObject> _spawnedEnemies;
     private float _timeAfterLastSpawn;
     private int _spawned;
 
     private void Start()
     {
-        SetWave(_currentWaveNumber);
+        _player.ResetEarnedOnThisWaveValue();
+        _currentWave.DeadEnemies = _currentWave.Amount;
+        _spawnedEnemies = new List<GameObject>();
     }
 
     private void Update()
     {
-        if (_currentWave == null)
-        {
-            return;
-        }
-
         _timeAfterLastSpawn += Time.deltaTime;
-
-        if (_timeAfterLastSpawn >= _currentWave.Delay)
+        if (_timeAfterLastSpawn >= _currentWave.Delay && _spawned < _currentWave.Amount)
         {
             InstantiateEnemy();
             _spawned++;
             _timeAfterLastSpawn = 0;
         }
-
-        if (_currentWave.Amount <= _spawned)
-        {
-            _currentWave = null;
-        }
     }
 
     private void InstantiateEnemy()
     {
-        Enemy enemy = Instantiate(_currentWave.Template, _spawnPoint.position, Quaternion.identity, _spawnPoint).GetComponent<Enemy>();
+        Enemy enemy = Instantiate(_currentWave.Template[Random.Range(0, _currentWave.Template.Length)], _spawnPoint.position, Quaternion.identity, _spawnPoint).GetComponent<Enemy>();
         enemy.Init(_player);
         enemy.EnemyIsDead += OnEnemyDead;
-    }
-
-    private void SetWave(int index)
-    {
-        _currentWave = _waves[index];
+        _spawnedEnemies.Add(enemy.gameObject);
+        _currentWave.RecalculateRandomSpawnTime();
     }
 
     private void OnEnemyDead(Enemy enemy)
     {
         enemy.EnemyIsDead -= OnEnemyDead;
         _player.AddMoney(enemy.GetReward());
+        _currentWave.DeadEnemies--;
+
+        if (_currentWave.DeadEnemies <= 0)
+        {
+            _waveController.EnableWinScreen();
+        }
+    }
+
+    public void ResetSpawnedEnemies()
+    {
+        _spawned = 0;
+        DestroyAllEnemiesOnReset();
+    }
+
+    public void DestroyAllEnemiesOnReset()
+    {
+        foreach (var enemy in _spawnedEnemies)
+        {
+            Destroy(enemy);
+        }
     }
 }
 
-[System.Serializable]
-
-public class Wave
-{
-    public GameObject Template;
-    public float Delay;
-    public int Amount;
-}

@@ -6,6 +6,7 @@ public class SwitchWeapon : MonoBehaviour
     [SerializeField] private Player _player;
     [SerializeField] private Button _button;
     [SerializeField] private Image _image;
+    [SerializeField] private AudioSource _audioSource;
 
     private int _nextWeapon = 1;
     private int _previousWeapon = -1;
@@ -29,10 +30,12 @@ public class SwitchWeapon : MonoBehaviour
         if (TryGetComponent(out NextWeaponButton nextWeaponButton))
         {
             _player.SwitchWeapon(_nextWeapon);
+            _audioSource.Play();
         }
         else if (TryGetComponent(out PreviousWeaponButton previousWeaponButton))
         {
             _player.SwitchWeapon(_previousWeapon);
+            _audioSource.Play();
         }
     }
 

@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 1948f83948e7029459fcad0479192afa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -119,8 +119,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87b8f0bb5018c3f408b1ff65b946da21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 6330428300830723079, guid: e4a581f6cee26864fbae24f52f238616, type: 3}
   _bullet: {fileID: 0}
+  _juiceSplash: {fileID: 4364431596671956133, guid: 65572929f1ec15e43932e364fc26c7c0, type: 3}
+  _damageTakenEffect: {fileID: 2934336574759612664, guid: 3e74673cbc04f804792ded9eee54baa9, type: 3}
 --- !u!114 &-6380332439905045994
 MonoBehaviour:
   m_ObjectHideFlags: 0

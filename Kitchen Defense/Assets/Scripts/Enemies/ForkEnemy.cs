@@ -10,14 +10,13 @@ public class ForkEnemy : Enemy
 
     private float _speed;
     private float _speedModifyer = 3;
-    private float _damage;
     private float _health;
     private Animator _animator;
     private string _animationWinState = "Win";
     private BoxCollider2D _boxCollider;
+    private float _healthModifierValue;
 
     protected float Speed;
-    protected float Damage;
 
     public override event UnityAction<Enemy> EnemyIsDead;
     public override event UnityAction<Enemy> EnemyIsHit;
@@ -26,11 +25,11 @@ public class ForkEnemy : Enemy
 
     private void Awake()
     {
-        _health = BaseHealth;
-        _damage = BaseDamage;
+        BaseDamage = Random.Range(WaveController.GameWave / 2f, WaveController.GameWave * 1.5f);
+        _healthModifierValue = Random.Range(WaveController.GameWave / 2f, WaveController.GameWave * 1.2f);
+        _health = BaseHealth + _healthModifierValue;
         _speed = BaseSpeed * _speedModifyer;
         Speed = _speed;
-        Damage = _damage;
         MaxHealth = 5;
         _boxCollider = GetComponent<BoxCollider2D>();
         CurrentHealth = _health;
@@ -63,7 +62,14 @@ public class ForkEnemy : Enemy
 
     public override int GetReward()
     {
-        return EnemyReward += BaseReward * WaveController.GameWave;
+        if (WaveController.GameWave >= 20)
+        {
+            return EnemyReward += BaseReward * WaveController.GameWave / 10;
+        }
+        else
+        {
+            return EnemyReward += BaseReward;
+        }
     }
 
     public override float GetHealth()

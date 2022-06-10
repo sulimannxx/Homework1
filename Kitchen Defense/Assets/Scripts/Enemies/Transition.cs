@@ -20,10 +20,4 @@ public abstract class Transition : MonoBehaviour
     {
         NeedToTransit = false;
     }
-
-    protected void ResetTransition()
-    {
-        Debug.Log("Reset");
-        NeedToTransit = false;
-    }
 }

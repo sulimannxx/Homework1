@@ -19,7 +19,7 @@ public class HealthBar : MonoBehaviour
     private void UpdateHpBar()
     {
         _slider.value = _player.CurrentHealth / _player.MaxHealth;
-        _healthText.text = _player.CurrentHealth.ToString();
+        _healthText.text = _player.CurrentHealth.ToString("0.00");
     }
 
     private void OnDisable()

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Shop : MonoBehaviour
 {
@@ -7,8 +8,12 @@ public class Shop : MonoBehaviour
     [SerializeField] private Player _player;
     [SerializeField] private List<Weapon> _weapons;
     [SerializeField] private List<BuyWeaponButton> _buyWeaponButtons;
+    [SerializeField] private GameObject _playerInfoScreen;
+    [SerializeField] private AudioSource _audioSource;
 
-    private void Start()
+    public event UnityAction<bool> ShopUiButtonPressed;
+
+    private void Awake()
     {
         _shop.gameObject.SetActive(false);
     }
@@ -17,18 +22,34 @@ public class Shop : MonoBehaviour
     {
         if (_shop.gameObject.activeSelf == true)
         {
-            Time.timeScale = 1;
-            _shop.gameObject.SetActive(false);
+            ActivateShopButtonPressedEvent(false);
         }
         else if (_shop.gameObject.activeSelf == false)
         {
-            Time.timeScale = 0;
-            _shop.gameObject.SetActive(true);
+            ActivateShopButtonPressedEvent(true);
 
             foreach (var buyWeaponButton in _buyWeaponButtons)
             {
                 buyWeaponButton.RecountIfPlayerHasEnoughMoney();
             }
-        }      
+        }
+        _audioSource.Play();
+    }
+
+    public void ActivateShopButtonPressedEvent(bool state)
+    {
+        if (state == false)
+        {
+            ShopUiButtonPressed?.Invoke(false);
+            _shop.gameObject.SetActive(false);
+            Time.timeScale = 1;
+        }
+        else if (state == true)
+        {
+            ShopUiButtonPressed?.Invoke(true);
+            _playerInfoScreen.SetActive(false);
+            Time.timeScale = 0;
+            _shop.gameObject.SetActive(true);
+        }
     }
 }

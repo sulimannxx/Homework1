@@ -3,12 +3,19 @@ using UnityEngine;
 
 public class StoneBullet : StoneWeapon
 {
+    [SerializeField] private GameObject _stoneSplash;
+    [SerializeField] private DamageTakenText _damageTakenEffect;
+
+    private Transform _canvas;
+    private DamageTakenText _damageTakenText;
+    private ParticleSystem _particleSystem;
     private int _rotationSpeed = 500;
-    public float BulletDamage => Damage;
 
     private void Start()
     {
         StartCoroutine(BulletLifeTime());
+        _particleSystem = _stoneSplash.GetComponent<ParticleSystem>();
+        _canvas = Camera.main.GetComponent<ObjectFinder>().GetCanvas();
     }
 
     private void Update()
@@ -21,7 +28,24 @@ public class StoneBullet : StoneWeapon
     {
         if (collision.gameObject.TryGetComponent(out Enemy enemy))
         {
-            enemy.ApplyDamage(BulletDamage);
+            _particleSystem = Instantiate(_particleSystem, transform.position, Quaternion.identity);
+            _damageTakenText = Instantiate(_damageTakenEffect, collision.gameObject.transform.position,
+                Quaternion.identity, _canvas);
+            Destroy(_damageTakenText.gameObject, 0.5f); 
+            _particleSystem.Play();
+            Destroy(_particleSystem.gameObject, 2f);
+
+            if (IsDamageCritical() == true)
+            {
+                enemy.ApplyDamage(Damage * 2);
+                _damageTakenText.SetTextValue(Damage * 2);
+            }
+            else
+            {
+                enemy.ApplyDamage(Damage);
+                _damageTakenText.SetTextValue(Damage);
+            }
+
             Destroy(gameObject);
         }
     }

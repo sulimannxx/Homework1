@@ -3,12 +3,20 @@ using UnityEngine;
 
 public class OrangeBullet : OrangeWeapon
 {
+    [SerializeField] private GameObject _juiceSplash;
+    [SerializeField] private DamageTakenText _damageTakenEffect;
+
+    private Transform _canvas;
+    private DamageTakenText _damageTakenText;
+    private ParticleSystem _particleSystem;
     private int _rotationSpeed = 500;
     public float BulletDamage => Damage;
 
     private void Start()
     {
         StartCoroutine(BulletLifeTime());
+        _particleSystem = _juiceSplash.GetComponent<ParticleSystem>();
+        _canvas = Camera.main.GetComponent<ObjectFinder>().GetCanvas();
     }
 
     private void Update()
@@ -21,7 +29,24 @@ public class OrangeBullet : OrangeWeapon
     {
         if (collision.gameObject.TryGetComponent(out Enemy enemy))
         {
-            enemy.ApplyDamage(BulletDamage);
+            _particleSystem = Instantiate(_particleSystem, transform.position, Quaternion.identity);
+            _damageTakenText = Instantiate(_damageTakenEffect, collision.gameObject.transform.position,
+                Quaternion.identity, _canvas);
+            Destroy(_damageTakenText.gameObject, 0.5f); 
+            _particleSystem.Play();
+            Destroy(_particleSystem.gameObject, 2f);
+
+            if (IsDamageCritical() == true)
+            {
+                enemy.ApplyDamage(BulletDamage * 2);
+                _damageTakenText.SetTextValue(BulletDamage * 2);
+            }
+            else
+            {
+                enemy.ApplyDamage(BulletDamage);
+                _damageTakenText.SetTextValue(BulletDamage);
+            }
+
             Destroy(gameObject);
         }
     }

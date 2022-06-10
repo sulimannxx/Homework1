@@ -1,16 +1,20 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 
 public class MoveState : State
 {
-    [SerializeField] private float _speed;
     [SerializeField] private float _targetX;
     [SerializeField] private float _targetY;
 
+    private float _speed;
     private string _animationMoveState = "Move";
     private Animator _animator;
     private Vector2 _targetPosition;
+    private SlushFreezer _freezer;
+    private float _defaultSpeed;
+    private float _randomSpeedMinValue = 2f;
 
     private void Awake()
     {
@@ -19,6 +23,8 @@ public class MoveState : State
 
     private void Start()
     {
+        _speed = Random.Range(_randomSpeedMinValue, _randomSpeedMinValue + WaveController.GameWave / 400f);
+        _defaultSpeed = _speed;
         _targetPosition = new Vector2(Target.transform.position.x - _targetX, Target.transform.position.y - _targetY);
     }
 
@@ -43,5 +49,18 @@ public class MoveState : State
     private void OnDisable()
     {
         _animator.StopPlayback();
+    }
+
+    public void FreezeEnemy(float freezeTime, GameObject freezeTexture)
+    {
+        StartCoroutine(FreezeDelay(freezeTime, freezeTexture));
+    }
+
+    private IEnumerator FreezeDelay(float freezeTime, GameObject freezeTexture)
+    {
+        _speed = 0;
+        yield return new WaitForSeconds(freezeTime);
+        _speed = _defaultSpeed;
+        Destroy(freezeTexture);
     }
 }
