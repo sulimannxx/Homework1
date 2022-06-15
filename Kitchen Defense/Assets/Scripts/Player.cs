@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
     private Aura _aura;
     private float _maxCriticalStrikeChance = 100;
     private float _maxPieReceiveChance = 100;
+    private float[] _loadGloveStatsData;
 
     public float GloveDamageModifier { get; private set; } = 1;
     public float CriticalStrikeModifier { get; private set; } = 1;
@@ -71,15 +72,30 @@ public class Player : MonoBehaviour
         _aura = GetComponentInChildren<Aura>();
         _aura.gameObject.SetActive(false);
         RecountMaxHealth();
-        CurrentHealth = MaxHealth;
-        HealthIsChanged?.Invoke();
         CurrentWeapon.Init(this);
         StartCoroutine(LoadMoneyAfterOneFrame());
+        _loadGloveStatsData = _progressSaveManager.LoadCurrentSkinIdStats();
+        LoadGloveStats();
+        LoadGloveSprite();
+        LoadCurrentHealth();
+
+        if (_progressSaveManager.PlayerProfile.MoneyIncomeBonus < 1)
+        {
+            _progressSaveManager.PlayerProfile.MoneyIncomeBonus = 1;
+        }
+    }
+
+    private void OnEnable()
+    {
+        foreach (var weapon in _weaponList)
+        {
+            StartCoroutine(WeaponCooldown(weapon));
+        }
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && EventSystem.current.IsPointerOverGameObject() == false &&
+        if (Input.GetMouseButtonDown(0) && IsPointerOverUIObject() == false &&
             _readyToShoot == true)
         {
             if (CurrentWeapon.CoolDownCurrentValue <= 0)
@@ -94,12 +110,29 @@ public class Player : MonoBehaviour
         }
     }
 
+    private bool IsPointerOverUIObject()
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        return results.Count > 0;
+    }
+
     private IEnumerator LoadMoneyAfterOneFrame()
     {
         yield return new WaitForEndOfFrame();
         Money = _progressSaveManager.PlayerProfile.Money;
         PieCoins = _progressSaveManager.PlayerProfile.Pies;
         MoneyChanged?.Invoke();
+    }
+
+    private IEnumerator LoadWeaponInventoryAfterOneFrame(Weapon weapon)
+    {
+        yield return new WaitForEndOfFrame();
+        _weaponList.Add(weapon);
+         _weaponList[_weaponList.Count - 1].Init(this);
+        HasMoreThanOneWeapon?.Invoke();
     }
 
     private IEnumerator WeaponCooldown(Weapon weapon)
@@ -116,6 +149,23 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(seconds);
         _aura.gameObject.SetActive(false);
         AuraIsActivated = false;
+    }
+
+    public void LoadCurrentHealth()
+    {
+        CurrentHealth = _progressSaveManager.PlayerProfile.CurrentHealth;
+
+        if (CurrentHealth <= 0)
+        {
+            CurrentHealth = MaxHealth;
+        }
+
+        HealthIsChanged?.Invoke();
+    }
+
+    public void LoadWeaponInventory(Weapon weapon)
+    {
+        StartCoroutine(LoadWeaponInventoryAfterOneFrame(weapon));
     }
 
     public void DecreasePies(int pies)
@@ -181,6 +231,12 @@ public class Player : MonoBehaviour
         {
             _playerHealtAudioSource.Play();
             CurrentHealth += health;
+            HealthIsChanged?.Invoke();
+            _progressSaveManager.PlayerProfile.CurrentHealth = CurrentHealth;
+        }
+        else if (CurrentHealth + health >= MaxHealth)
+        {
+            CurrentHealth = MaxHealth;
             HealthIsChanged?.Invoke();
             _progressSaveManager.PlayerProfile.CurrentHealth = CurrentHealth;
         }
@@ -273,12 +329,12 @@ public class Player : MonoBehaviour
 
     public void AddMoney(float reward)
     {
-        Money += reward;
+        Money += reward * _progressSaveManager.PlayerProfile.MoneyIncomeBonus;
         EarnedMoneyOnThisWave += reward;
 
         float chance = Random.Range(0, _maxPieReceiveChance);
 
-        if (chance <= (float)SpellBook.GetSkillLevel(_pieChanceSkill) / 35 + 18.5f + PieChanceModifier)
+        if (chance <= (float)SpellBook.GetSkillLevel(_pieChanceSkill) / 35f + 1f + PieChanceModifier)
         {
             PieCoins++;
             EarnedPiesOnThisWave++;
@@ -330,7 +386,7 @@ public class Player : MonoBehaviour
 
     public void RecountMaxHealth()
     {
-        MaxHealth = Mathf.Pow(SpellBook.GetSkillLevel(_healthSkill), 2) + 10;
+        MaxHealth = Mathf.Pow(SpellBook.GetSkillLevel(_healthSkill), 3) + 50;
         HealthIsChanged?.Invoke();
     }
 
@@ -386,7 +442,7 @@ public class Player : MonoBehaviour
         _readyToShoot = state;
     }
 
-    private void OnUiButtonPressed(bool state)
+    public void OnUiButtonPressed(bool state)
     {
         if (state == true)
         {
@@ -396,6 +452,19 @@ public class Player : MonoBehaviour
         {
             _readyToShoot = true;
         }
+    }
+
+    private void LoadGloveStats()
+    {
+        GloveDamageModifier = _loadGloveStatsData[0];
+        CriticalStrikeModifier = _loadGloveStatsData[1];
+        WeaponCoolDownModifier = _loadGloveStatsData[2];
+        PieChanceModifier = _loadGloveStatsData[3];
+    }
+
+    private void LoadGloveSprite()
+    {
+        GetComponent<SpriteRenderer>().sprite = _progressSaveManager.LoadCurrentSkinSprite(_progressSaveManager.PlayerProfile.CurrentSkinId - 1);
     }
 
     private void OnDestroy()

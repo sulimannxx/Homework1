@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class TextLanguageChanger : MonoBehaviour
 {
-    [SerializeField] private TMP_Text _text;
+    private TMP_Text _text;
     [TextArea]
     [SerializeField] private string _englishText;
     [TextArea]
@@ -13,6 +13,7 @@ public class TextLanguageChanger : MonoBehaviour
 
     private void Start()
     {
+        _text = GetComponent<TMP_Text>();
         OnLanguageChanged(LanguageManager.CurrentLanguage);
         LanguageManager.LanguageChanged += OnLanguageChanged;
     }

@@ -9,6 +9,9 @@ public class PauseButton : MonoBehaviour
     [SerializeField] private GameObject _pausePanel;
     [SerializeField] private GameObject _shop;
     [SerializeField] private GameObject _playerInfo;
+    [SerializeField] private GameObject _newGamePlusPanel;
+    [SerializeField] private Player _player;
+    [SerializeField] private GameObject _playerHealText;
 
     public void PressPauseButton()
     {
@@ -22,6 +25,8 @@ public class PauseButton : MonoBehaviour
             _blackFilter.gameObject.SetActive(false);
             Time.timeScale = 1;
             _pausePanel.SetActive(false);
+            _newGamePlusPanel.SetActive(false);
+            _player.OnUiButtonPressed(false);
         }
         else if (_blackFilter.IsActive() == false)
         {
@@ -35,6 +40,7 @@ public class PauseButton : MonoBehaviour
             Time.timeScale = 0;
             _blackFilter.gameObject.SetActive(true);
             _pausePanel.SetActive(true);
+            _playerHealText.SetActive(false);
         }
 
         _tapAudioSource.Play();

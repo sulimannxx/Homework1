@@ -28,10 +28,9 @@ public class KnifeEnemy : Enemy
         BaseDamage = Random.Range(WaveController.GameWave / 2f, WaveController.GameWave * 1.5f);
         _healthModifierValue = Random.Range(WaveController.GameWave / 2f, WaveController.GameWave * 1.2f);
         _health = BaseHealth + _healthModifierValue;
-        _health = BaseHealth;
         _speed = BaseSpeed * _speedModifyer;
         Speed = _speed;
-        MaxHealth = 5;
+        MaxHealth = _health;
         _boxCollider = GetComponent<BoxCollider2D>();
         CurrentHealth = _health;
     }

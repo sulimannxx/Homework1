@@ -13,12 +13,12 @@ public class PlayerMoney : MonoBehaviour
     {
         _text = GetComponent<TMP_Text>();
         _player.MoneyChanged += OnMoneyAdded;
-        _text.text = _player.Money.ToString();
+        _text.text = _player.Money.ToString("0");
     }
 
     private void OnMoneyAdded()
     {
-        _text.text = _player.Money.ToString();
+        _text.text = _player.Money.ToString("0");
     }
 
     private void OnDestroy()

@@ -268,6 +268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46c1eaf1c0dbd30409423c48d14ef859, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tapAudioSource: {fileID: 2067089395}
 --- !u!1 &62283434
 GameObject:
   m_ObjectHideFlags: 0
@@ -968,6 +969,7 @@ GameObject:
   - component: {fileID: 1161727972}
   - component: {fileID: 1161727974}
   - component: {fileID: 1161727973}
+  - component: {fileID: 1161727975}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1091,6 +1093,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1161727971}
   m_CullTransparentMesh: 1
+--- !u!114 &1161727975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1161727971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6c54c8713527944eb86f3dd883b5417, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _englishText: Music
+  _ukrainianText: "\u041C\u0443\u0437\u0438\u043A\u0430"
+  _russianText: "\u041C\u0443\u0437\u044B\u043A\u0430"
 --- !u!1 &1186110072
 GameObject:
   m_ObjectHideFlags: 0
@@ -1435,6 +1452,7 @@ GameObject:
   - component: {fileID: 1824746303}
   - component: {fileID: 1824746305}
   - component: {fileID: 1824746304}
+  - component: {fileID: 1824746306}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1558,6 +1576,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1824746302}
   m_CullTransparentMesh: 1
+--- !u!114 &1824746306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1824746302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6c54c8713527944eb86f3dd883b5417, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _englishText: Sound
+  _ukrainianText: "\u0417\u0432\u0443\u043A"
+  _russianText: "\u0417\u0432\u0443\u043A"
 --- !u!1 &1886326107
 GameObject:
   m_ObjectHideFlags: 0
@@ -1980,6 +2013,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46c1eaf1c0dbd30409423c48d14ef859, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tapAudioSource: {fileID: 2067089395}
 --- !u!1 &1987664928
 GameObject:
   m_ObjectHideFlags: 0
@@ -2125,6 +2159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46c1eaf1c0dbd30409423c48d14ef859, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tapAudioSource: {fileID: 2067089395}
 --- !u!1 &1989558784
 GameObject:
   m_ObjectHideFlags: 0

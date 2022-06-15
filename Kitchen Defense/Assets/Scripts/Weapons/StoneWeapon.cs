@@ -19,7 +19,7 @@ public class StoneWeapon : Weapon
         _skillBook = _player.GetComponent<SkillBook>();
         _skillBook.SkillLevelChanged += OnSkillLevelChanged;
         BaseDamage = 3 + _player.SpellBook.GetSkillLevel(_baseDamageSkill) * _player.GloveDamageModifier;
-        Damage = BaseDamage * _skillBook.GetSkillLevel(_stoneWeaponSkill) * 0.75f;
+        Damage = BaseDamage * _skillBook.GetSkillLevel(_stoneWeaponSkill) * 1.25f;
     }
 
     public override void Init(Player player)

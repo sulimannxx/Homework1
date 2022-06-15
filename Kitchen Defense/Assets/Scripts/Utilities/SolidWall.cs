@@ -35,7 +35,7 @@ public class SolidWall : Utility
 
     private void ResetWall()
     {
-        _health = 4 + WaveController.GameWave;
+        _health = 4 + WaveController.GameWave * 2;
         MaxHealth = _health;
     }
 

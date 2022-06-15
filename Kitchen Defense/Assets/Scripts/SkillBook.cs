@@ -34,7 +34,10 @@ public class SkillBook : MonoBehaviour
 
         foreach (var skill in _skillBook)
         {
-            skill.Value.SetSkillLevel(_saveManager.PlayerProfile.PlayerSkillLevels[i]);
+            if (_saveManager.PlayerProfile.PlayerSkillLevels.Count > 0)
+            {
+                skill.Value.SetSkillLevel(_saveManager.PlayerProfile.PlayerSkillLevels[i]);
+            }
             i++;
 
             if (skill.Value.Level == 0)

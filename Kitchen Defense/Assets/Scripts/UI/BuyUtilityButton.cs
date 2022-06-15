@@ -18,12 +18,21 @@ public class BuyUtilityButton : MonoBehaviour
 
     private void Start()
     {
-       // _utility.Bought(false);
         RecountIfPlayerHasEnoughMoney();
     }
 
     private void OnEnable()
     {
+        if (_utility.TryGetComponent(out SolidWall wall))
+        {
+            _utilityPrice = _utilityPrice * WaveController.GameWave * 2;
+        }
+
+        if (_utility.TryGetComponent(out Warehouse warehouse))
+        {
+            _utilityPrice = (int)_player.SpellBook.GetSkillPrice("WarehouseCapacitySkill");
+        }
+
         RecountIfPlayerHasEnoughMoney();
     }
 

@@ -19,7 +19,7 @@ public class LollipopWeapon : Weapon
         _skillBook = _player.GetComponent<SkillBook>();
         _skillBook.SkillLevelChanged += OnSkillLevelChanged;
         BaseDamage = 1 + _player.SpellBook.GetSkillLevel(_baseDamageSkill) * _player.GloveDamageModifier;
-        Damage = BaseDamage * _skillBook.GetSkillLevel(_lollipopWeaponSkill) * 0.5f;
+        Damage = BaseDamage * _skillBook.GetSkillLevel(_lollipopWeaponSkill) * 1.2f;
     }
 
     public override void Init(Player player)

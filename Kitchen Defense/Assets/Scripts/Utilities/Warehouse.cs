@@ -19,7 +19,7 @@ public class Warehouse : Utility
         if (Camera.main.GetComponent<ProgressSaveManager>().PlayerProfile.WarehouseIsBought == true)
         {
             EnableWarehouse();
-            IsBought = true;
+            IsBought = false;
         }
     }
 
@@ -37,7 +37,6 @@ public class Warehouse : Utility
 
     private void RecountMaxCapacity()
     {
-        Debug.Log(_player.SpellBook);
         switch (_player.SpellBook.GetSkillLevel(_warehouseSkillName))
         {
             case 1:

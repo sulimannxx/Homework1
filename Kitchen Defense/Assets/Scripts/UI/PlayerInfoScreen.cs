@@ -21,7 +21,7 @@ public class PlayerInfoScreen : MonoBehaviour
     [SerializeField] private TMP_Text _slushFreezeTimeLvl;
     [SerializeField] private TMP_Text _bananaWeaponDamage;
     [SerializeField] private TMP_Text _eclairDamage;
-    //[SerializeField] private TMP_Text _totalDamage;
+    [SerializeField] private TMP_Text _sugarBonus;
 
     private string _baseDamageSkill = "BaseDamageSkill";
     private string _criticalStrikeSkill = "CriticalStrikeSkill";
@@ -36,7 +36,7 @@ public class PlayerInfoScreen : MonoBehaviour
         _baseDamage.text = _player.SpellBook.GetSkillLevel(_baseDamageSkill).ToString();
         _critChance.text = $"{(_player.SpellBook.GetSkillLevel(_criticalStrikeSkill) + _player.CriticalStrikeModifier).ToString()}%";
         _cooldown.text = $"-{(_player.SpellBook.GetSkillLevel(_coolDownSkill) / 200f + _player.WeaponCoolDownModifier).ToString()} sec";
-        _cakeChance.text = $"{(_player.SpellBook.GetSkillLevel(_pieChanceSkill) / 35f + 1f + _player.PieChanceModifier).ToString("0.00")}%";
+        _cakeChance.text = $"{(_player.SpellBook.GetSkillLevel(_pieChanceSkill) / 35f + 1f + _player.PieChanceModifier):0.00}%";
         _wallHealth.text = (4 + WaveController.GameWave).ToString();
         _sugarFarmPerMinute.text = (10 * WaveController.GameWave).ToString();
         _icecreamHeal.text = (WaveController.GameWave / 10f).ToString();
@@ -47,6 +47,7 @@ public class PlayerInfoScreen : MonoBehaviour
         _slushFreezeTimeLvl.text = (4 + _player.SpellBook.GetSkillLevel(_slushWeaponSkill) / 25f).ToString();
         _bananaWeaponDamage.text = GetWeaponDamage<BananaWeapon>();
         _eclairDamage.text = GetWeaponDamage<EclairWeapon>();
+        _sugarBonus.text = $"{Camera.main.GetComponent<ProgressSaveManager>().PlayerProfile.MoneyIncomeBonus:0.0}%";
     }
 
     private void OnDisable()
@@ -60,7 +61,6 @@ public class PlayerInfoScreen : MonoBehaviour
 
         if (weapon != null)
         {
-            Debug.Log(weapon);
             weapon.Init(_player);
             return weapon.GetDamage().ToString();
         }

@@ -24,7 +24,7 @@ public class Wave : MonoBehaviour
 
     public void RecalculateRandomSpawnTime()
     {
-        Delay = 3 - Random.Range(0, _currentWaveNumber / 100);
+        Delay = 2.5f - Random.Range(0, _currentWaveNumber / 100);
 
         if (Delay <= 1)
         {

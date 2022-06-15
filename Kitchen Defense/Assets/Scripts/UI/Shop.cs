@@ -10,6 +10,7 @@ public class Shop : MonoBehaviour
     [SerializeField] private List<BuyWeaponButton> _buyWeaponButtons;
     [SerializeField] private GameObject _playerInfoScreen;
     [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private GameObject _playerHealText;
 
     public event UnityAction<bool> ShopUiButtonPressed;
 
@@ -50,6 +51,7 @@ public class Shop : MonoBehaviour
             _playerInfoScreen.SetActive(false);
             Time.timeScale = 0;
             _shop.gameObject.SetActive(true);
+            _playerHealText.SetActive(false);
         }
     }
 }

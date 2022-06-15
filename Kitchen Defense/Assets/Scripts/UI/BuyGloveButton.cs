@@ -22,7 +22,8 @@ public class BuyGloveButton : MonoBehaviour
     [SerializeField] private ProgressSaveManager _progressSaveManager;
     [SerializeField] private int _skinId;
 
-    private bool _skinIsBought = false;
+    public bool SkinIsBought { get; private set; } = false;
+
     private Color _enoughMoneyColor = new Color(0.7311321f, 1, 0.7647856f, 1);
     private Color _notEnoughMoneyColor = new Color(0.990566f, 0.4251958f, 0.4703167f, 1);
 
@@ -37,7 +38,7 @@ public class BuyGloveButton : MonoBehaviour
 
     public void RecountIfPlayerHasEnoughMoney()
     {
-        if (_skinIsBought == false)
+        if (SkinIsBought == false)
         {
             if (_player.Money >= _glovePriceInCoins && _player.PieCoins >= _glovePriceInPies)
             {
@@ -60,10 +61,10 @@ public class BuyGloveButton : MonoBehaviour
 
     public void BuyGreyGloveButton()
     {
-        if (_player.Money >= _glovePriceInCoins && _skinIsBought == false)
+        if (_player.Money >= _glovePriceInCoins && SkinIsBought == false)
         {
             _buyAudioSource.Play();
-            _skinIsBought = true;
+            SkinIsBought = true;
             _player.DecreaseMoney(_glovePriceInCoins);
             _player.AddGreyGloveBonusStats(_bonusDamagePercent, _bonusCritPercent);
             _player.SetPlayerSkin(_gloveSkin);
@@ -72,8 +73,9 @@ public class BuyGloveButton : MonoBehaviour
             _useText.SetActive(true);
             _image.color = _enoughMoneyColor;
             _progressSaveManager.PlayerProfile.CurrentSkinId = _skinId;
+            _progressSaveManager.PlayerProfile.BoughtSkinsId.Add(_skinId);
         }
-        else if (_skinIsBought == true)
+        else if (SkinIsBought == true)
         {
             _useAudioSource.Play();
             _player.AddGreyGloveBonusStats(_bonusDamagePercent, _bonusCritPercent);
@@ -84,10 +86,10 @@ public class BuyGloveButton : MonoBehaviour
 
     public void BuyBlueGloveButton()
     {
-        if (_player.Money >= _glovePriceInCoins && _player.PieCoins >= _glovePriceInPies && _skinIsBought == false)
+        if (_player.Money >= _glovePriceInCoins && _player.PieCoins >= _glovePriceInPies && SkinIsBought == false)
         {
             _buyAudioSource.Play();
-            _skinIsBought = true;
+            SkinIsBought = true;
             _player.DecreaseMoneyAndPies(_glovePriceInCoins, _glovePriceInPies);
             _player.AddBlueGloveBonusStats(_bonusDamagePercent, _bonusCritPercent, _weaponCooldownDecrease);
             _player.SetPlayerSkin(_gloveSkin);
@@ -99,8 +101,9 @@ public class BuyGloveButton : MonoBehaviour
             RecountIfPlayerHasEnoughMoney();
             _image.color = _enoughMoneyColor;
             _progressSaveManager.PlayerProfile.CurrentSkinId = _skinId;
+            _progressSaveManager.PlayerProfile.BoughtSkinsId.Add(_skinId);
         }
-        else if (_skinIsBought == true)
+        else if (SkinIsBought == true)
         {
             _useAudioSource.Play();
             _player.AddBlueGloveBonusStats(_bonusDamagePercent, _bonusCritPercent, _weaponCooldownDecrease);
@@ -111,10 +114,10 @@ public class BuyGloveButton : MonoBehaviour
 
     public void BuyGoldenGloveButton()
     {
-        if (_player.PieCoins >= _glovePriceInPies && _skinIsBought == false)
+        if (_player.PieCoins >= _glovePriceInPies && SkinIsBought == false)
         {
             _buyAudioSource.Play();
-            _skinIsBought = true;
+            SkinIsBought = true;
             _player.DecreasePies(_glovePriceInPies);
             _player.AddGoldenGloveBonusStats(_bonusDamagePercent, _bonusCritPercent, _weaponCooldownDecrease, _bonusPieChanceDrop);
             _player.SetPlayerSkin(_gloveSkin);
@@ -124,8 +127,9 @@ public class BuyGloveButton : MonoBehaviour
             RecountIfPlayerHasEnoughMoney();
             _image.color = _enoughMoneyColor;
             _progressSaveManager.PlayerProfile.CurrentSkinId = _skinId;
+            _progressSaveManager.PlayerProfile.BoughtSkinsId.Add(_skinId);
         }
-        else if (_skinIsBought == true)
+        else if (SkinIsBought == true)
         {
             _useAudioSource.Play();
             _player.AddGoldenGloveBonusStats(_bonusDamagePercent, _bonusCritPercent, _weaponCooldownDecrease, _bonusPieChanceDrop);
@@ -134,10 +138,9 @@ public class BuyGloveButton : MonoBehaviour
         }
     }
 
-    public void LoadButtonState(bool state)
+    public void LoadButtonState(int id)
     {
-        //создать лист баттонов
-        if (state == true)
+        if (id == _skinId)
         {
             if (_moneyIcon != null && _moneyText != null)
             {

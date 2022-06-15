@@ -30,7 +30,7 @@ public class WhiskEnemy : Enemy
         _health = BaseHealth + _healthModifierValue;
         _speed = BaseSpeed * _speedModifyer;
         Speed = _speed;
-        MaxHealth = 5;
+        MaxHealth = _health;
         _boxCollider = GetComponent<BoxCollider2D>();
         CurrentHealth = _health;
     }

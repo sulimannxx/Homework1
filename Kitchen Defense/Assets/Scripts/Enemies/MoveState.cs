@@ -14,7 +14,7 @@ public class MoveState : State
     private Vector2 _targetPosition;
     private SlushFreezer _freezer;
     private float _defaultSpeed;
-    private float _randomSpeedMinValue = 2f;
+    private float _randomSpeedMinValue = 2.5f;
 
     private void Awake()
     {
@@ -23,7 +23,7 @@ public class MoveState : State
 
     private void Start()
     {
-        _speed = Random.Range(_randomSpeedMinValue, _randomSpeedMinValue + WaveController.GameWave / 400f);
+        _speed = Random.Range(_randomSpeedMinValue, _randomSpeedMinValue + WaveController.GameWave / 200f);
         _defaultSpeed = _speed;
         _targetPosition = new Vector2(Target.transform.position.x - _targetX, Target.transform.position.y - _targetY);
     }

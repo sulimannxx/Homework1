@@ -1,13 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class ProgressSaveManager : MonoBehaviour
 {
     public PlayerData PlayerProfile;
     public Utility[] Utilities;
     public Sprite[] Skins;
+    public BuyGloveButton[] BuyGloveButtons;
+    public BuyWeaponButton[] BuyWeaponButtons;
 
     private void Start()
     {
@@ -17,6 +19,43 @@ public class ProgressSaveManager : MonoBehaviour
         {
             utility.Init();
         }
+
+        foreach (var id in PlayerProfile.BoughtSkinsId)
+        {
+            foreach (var button in BuyGloveButtons)
+            {
+                button.LoadButtonState(id);
+            }
+        }
+
+        foreach (var id in PlayerProfile.BoughtWeaponsId)
+        {
+            foreach (var button in BuyWeaponButtons)
+            {
+                button.LoadButtonState(id);
+            }
+        }
+    }
+
+    public void ResetProfile()
+    {
+        for (int i = 0; i < PlayerProfile.PlayerSkillLevels.Count; i++)
+        {
+            PlayerProfile.PlayerSkillLevels[i] = 1;
+        }
+
+        PlayerProfile.WarehouseIsBought = false;
+        PlayerProfile.SugarFarmIsBought = false;
+        PlayerProfile.IceCreamIsBought = false;
+        PlayerProfile.Money = 0;
+        PlayerProfile.CurrentSkinId = 0;
+        PlayerProfile.MoneyIncomeBonus += WaveController.GameWave / 10f;
+        PlayerProfile.GameWave = 1;
+        PlayerProfile.BoughtSkinsId.Clear();
+        PlayerProfile.BoughtWeaponsId.Clear();
+        Time.timeScale = 1;
+        SaveGame();
+        SceneManager.LoadScene("MainGame");
     }
 
     public void SaveSkills(int value)
@@ -26,26 +65,37 @@ public class ProgressSaveManager : MonoBehaviour
 
     public void SaveGame()
     {
-        File.WriteAllText(Application.streamingAssetsPath + "/save.json", JsonUtility.ToJson(PlayerProfile));
+        //File.WriteAllText(Application.streamingAssetsPath + "/save.json", JsonUtility.ToJson(PlayerProfile));
+        PlayerPrefs.SetString("save", JsonUtility.ToJson(PlayerProfile));
     }
 
     public void LoadGame()
     {
-        if (File.Exists(Application.streamingAssetsPath + "/save.json"))
+        if (PlayerPrefs.HasKey("save"))//(File.Exists(Application.streamingAssetsPath + "/save.json"))
         {
-            PlayerProfile = JsonUtility.FromJson<PlayerData>(File.ReadAllText(Application.streamingAssetsPath + "/save.json"));
+            PlayerProfile = JsonUtility.FromJson<PlayerData>(PlayerPrefs.GetString("save"));//(File.ReadAllText(Application.streamingAssetsPath + "/save.json"));
             WaveController.GameWave = PlayerProfile.GameWave;
 
             if (WaveController.GameWave < 1)
             {
                 WaveController.GameWave = 1;
             }
+
+            if (PlayerProfile.MoneyIncomeBonus < 1f)
+            {
+                PlayerProfile.MoneyIncomeBonus = 1;
+            }
         }
     }
 
-    public float[] LoadCurrentSkinID()
+    public float[] LoadCurrentSkinIdStats()
     {
         float[] tempStats = new float[4];
+
+        if (PlayerProfile.CurrentSkinId == 0)
+        {
+            PlayerProfile.CurrentSkinId = 1;
+        }
 
         switch (PlayerProfile.CurrentSkinId)
         {
@@ -138,10 +188,13 @@ public class ProgressSaveManager : MonoBehaviour
         public bool WarehouseIsBought;
         public bool SugarFarmIsBought;
         public bool IceCreamIsBought;
+        public float MoneyIncomeBonus;
         public int GameWave;
         public int Money;
         public int Pies;
         public float CurrentHealth;
         public int CurrentSkinId;
+        public List<int> BoughtSkinsId;
+        public List<int> BoughtWeaponsId;
     }
 }
