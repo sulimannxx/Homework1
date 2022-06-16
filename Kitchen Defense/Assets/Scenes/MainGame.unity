@@ -33852,7 +33852,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 6330428299815934394}
   _utility: {fileID: 1369552165}
-  _utilityPrice: 1
+  _utilityPrice: 0
   _image: {fileID: 962690148}
   _audioSource: {fileID: 787836778}
 --- !u!114 &962690147
@@ -73580,6 +73580,11 @@ MonoBehaviour:
   _solidWall: {fileID: 6190881181444416456}
   _player: {fileID: 6330428299815934394}
   _solidWallDestroyEffectPoint: {fileID: 1494539827}
+  _playerHitAudioSource: {fileID: 4988838026503563674}
+  _playerHitSounds:
+  - {fileID: 8300000, guid: 653238f03e7566d4481028582c07c5eb, type: 3}
+  - {fileID: 8300000, guid: 081a8ef4e793b8345ae647033df6b607, type: 3}
+  - {fileID: 8300000, guid: f2d6b511e4f0ce24dac102b4bc037193, type: 3}
 --- !u!114 &6330428299815934394
 MonoBehaviour:
   m_ObjectHideFlags: 0

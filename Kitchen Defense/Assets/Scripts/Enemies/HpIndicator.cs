@@ -1,6 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Enemy))]
 
 public class HpIndicator : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class HpIndicator : MonoBehaviour
     private void Start()
     {
         _enemy = GetComponent<Enemy>();
-        _enemy.EnemyIsHit += OnEnemyHit;
+        _enemy.IsHit += OnEnemyHit;
         _currentColor = Color.white;
     }
 
@@ -23,6 +24,6 @@ public class HpIndicator : MonoBehaviour
 
     private void OnDestroy()
     {
-        _enemy.EnemyIsHit -= OnEnemyHit;
+        _enemy.IsHit -= OnEnemyHit;
     }
 }

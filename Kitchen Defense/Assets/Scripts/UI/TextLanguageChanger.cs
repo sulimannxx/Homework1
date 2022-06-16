@@ -1,6 +1,8 @@
 using TMPro;
 using UnityEngine;
 
+[RequireComponent(typeof(TMP_Text))]
+
 public class TextLanguageChanger : MonoBehaviour
 {
     private TMP_Text _text;

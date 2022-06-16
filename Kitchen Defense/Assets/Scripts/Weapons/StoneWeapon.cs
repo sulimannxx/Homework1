@@ -32,7 +32,7 @@ public class StoneWeapon : Weapon
     public override void OnSkillLevelChanged()
     {
         BaseDamage = 3 + _player.SpellBook.GetSkillLevel(_baseDamageSkill) * _player.GloveDamageModifier;
-        Damage = BaseDamage * _skillBook.GetSkillLevel(_stoneWeaponSkill) * 0.75f;
+        Damage = BaseDamage * _skillBook.GetSkillLevel(_stoneWeaponSkill) * 1.25f;
     }
 
     public override void Shoot(Player player)

@@ -32,7 +32,7 @@ public class LollipopWeapon : Weapon
     public override void OnSkillLevelChanged()
     {
         BaseDamage = 1 + _player.SpellBook.GetSkillLevel(_baseDamageSkill) * _player.GloveDamageModifier;
-        Damage = BaseDamage * _skillBook.GetSkillLevel(_lollipopWeaponSkill) * 0.5f;
+        Damage = BaseDamage * _skillBook.GetSkillLevel(_lollipopWeaponSkill) * 1.2f;
     }
 
     public override void Shoot(Player player)

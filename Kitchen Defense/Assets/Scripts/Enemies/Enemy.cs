@@ -9,8 +9,8 @@ public abstract class Enemy : MonoBehaviour
 
     public float BaseDamage { get; protected set; }
 
-    public abstract event UnityAction<Enemy> EnemyIsDead;
-    public abstract event UnityAction<Enemy> EnemyIsHit;
+    public abstract event UnityAction<Enemy> IsDead;
+    public abstract event UnityAction<Enemy> IsHit;
     public float MaxHealth { get; protected set; }
     public float CurrentHealth { get; protected set; }
     public SpriteRenderer EnemySprite { get; protected set; }

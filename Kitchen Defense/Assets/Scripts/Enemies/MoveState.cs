@@ -53,10 +53,10 @@ public class MoveState : State
 
     public void FreezeEnemy(float freezeTime, GameObject freezeTexture)
     {
-        StartCoroutine(FreezeDelay(freezeTime, freezeTexture));
+        StartCoroutine(FreezeTimer(freezeTime, freezeTexture));
     }
 
-    private IEnumerator FreezeDelay(float freezeTime, GameObject freezeTexture)
+    private IEnumerator FreezeTimer(float freezeTime, GameObject freezeTexture)
     {
         _speed = 0;
         yield return new WaitForSeconds(freezeTime);

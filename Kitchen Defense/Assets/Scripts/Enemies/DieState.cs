@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
@@ -24,23 +22,7 @@ public class DieState : State
     {
         _moveState.enabled = false;
         _attackState.enabled = false;
-        StartCoroutine(DeathDelay());
+        Destroy(gameObject, 2f);
         _animator.Play(_animationDieState);
-    }
-
-    private IEnumerator DeathDelay()
-    {
-        yield return new WaitForSeconds(2);
-        Destroy(gameObject);
-    }
-
-    private void OnDestroy()
-    {
-        StopCoroutine(DeathDelay());
-    }
-
-    private void OnDisable()
-    {
-        StopCoroutine(DeathDelay());
     }
 }

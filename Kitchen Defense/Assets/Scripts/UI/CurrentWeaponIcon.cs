@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Image))]
+
 public class CurrentWeaponIcon : MonoBehaviour
 {
     [SerializeField] private Player _player;

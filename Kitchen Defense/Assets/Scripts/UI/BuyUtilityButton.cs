@@ -1,9 +1,10 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Image))]
 
-public class BuyUtilityButton : MonoBehaviour
+public class BuyUtilityButton : ShopButton
 {
     [SerializeField] private Player _player;
     [SerializeField] private Utility _utility;
@@ -11,8 +12,7 @@ public class BuyUtilityButton : MonoBehaviour
     [SerializeField] private Image _image;
     [SerializeField] private AudioSource _audioSource;
 
-    private Color _enoughMoneyColor = new Color(0.7311321f, 1, 0.7647856f, 1);
-    private Color _notEnoughMoneyColor = new Color(0.990566f, 0.4251958f, 0.4703167f, 1);
+    public UnityAction<int> PriceChanged;
 
     public int UtilityPrice => _utilityPrice;
 
@@ -23,16 +23,6 @@ public class BuyUtilityButton : MonoBehaviour
 
     private void OnEnable()
     {
-        if (_utility.TryGetComponent(out SolidWall wall))
-        {
-            _utilityPrice = _utilityPrice * WaveController.GameWave * 2;
-        }
-
-        if (_utility.TryGetComponent(out Warehouse warehouse))
-        {
-            _utilityPrice = (int)_player.SpellBook.GetSkillPrice("WarehouseCapacitySkill");
-        }
-
         RecountIfPlayerHasEnoughMoney();
     }
 
@@ -41,7 +31,7 @@ public class BuyUtilityButton : MonoBehaviour
         if (_player.Money >= _utilityPrice && _utility.IsBought == false)
         {
             _audioSource.Play();
-            _utility.Bought(true);
+            _utility.EnableUtility(true);
             _player.DecreaseMoney(_utilityPrice);
             RecountIfPlayerHasEnoughMoney();
         }
@@ -49,13 +39,24 @@ public class BuyUtilityButton : MonoBehaviour
 
     private void RecountIfPlayerHasEnoughMoney()
     {
+        if (_utility.TryGetComponent(out SolidWall wall))
+        {
+            _utilityPrice = WaveController.GameWave * 2;
+        }
+
+        if (_utility.TryGetComponent(out Warehouse warehouse))
+        {
+            _utilityPrice = (int)_player.SpellBook.GetSkillPrice("WarehouseCapacitySkill");
+            PriceChanged?.Invoke(_utilityPrice);
+        }
+
         if (_player.Money >= _utilityPrice && _utility.IsBought == false)
         {
-            _image.color = _enoughMoneyColor;
+            _image.color = EnoughMoneyColor;
         }
         else
         {
-            _image.color = _notEnoughMoneyColor;
+            _image.color = NotEnoughMoneyColor;
         }
     }
 }

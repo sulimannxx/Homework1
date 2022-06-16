@@ -6,8 +6,8 @@ public class DistanceTransition : Transition
     [SerializeField] private float _targetY;
 
     private float _transitionRange;
-    private float _minValueDelta = 0;
-    private float _maxValueDelta = 0.5f;
+    private readonly float _minValueDelta = 0;
+    private readonly float _maxValueDelta = 0.5f;
     private Vector2 _targetPosition;
 
     private void Start()
@@ -20,11 +20,8 @@ public class DistanceTransition : Transition
     {
         if (Target != null)
         {
-            if (Vector2.Distance(transform.position, _targetPosition) < _transitionRange)
-            {
-                NeedToTransit = true;
-            }
-        }        
+            if (Vector2.Distance(transform.position, _targetPosition) < _transitionRange) NeedToTransit = true;
+        }
         else
         {
             NeedToTransit = false;

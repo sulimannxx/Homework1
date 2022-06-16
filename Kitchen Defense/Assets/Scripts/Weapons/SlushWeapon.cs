@@ -18,9 +18,9 @@ public class SlushWeapon : Weapon
         Player = Camera.main.GetComponent<ObjectFinder>().GetPlayer();
         _skillBook = Player.GetComponent<SkillBook>();
         _skillBook.SkillLevelChanged += OnSkillLevelChanged;
-        BaseDamage = 1 + Player.SpellBook.GetSkillLevel(_baseDamageSkill) * Player.GloveDamageModifier;
-        Damage = BaseDamage * _skillBook.GetSkillLevel(_slushWeaponSkill) / 10;
-        FreezeTime = 4 + _skillBook.GetSkillLevel(_slushWeaponSkill) / 25;
+        BaseDamage = 1f + Player.SpellBook.GetSkillLevel(_baseDamageSkill) * Player.GloveDamageModifier;
+        Damage = BaseDamage * _skillBook.GetSkillLevel(_slushWeaponSkill) / 10f;
+        FreezeTime = 4f + _skillBook.GetSkillLevel(_slushWeaponSkill) / 25f;
     }
 
     public override void Init(Player player)
@@ -32,9 +32,9 @@ public class SlushWeapon : Weapon
 
     public override void OnSkillLevelChanged()
     {
-        BaseDamage = 1 + Player.SpellBook.GetSkillLevel(_baseDamageSkill) * Player.GloveDamageModifier;
+        BaseDamage = 1f + Player.SpellBook.GetSkillLevel(_baseDamageSkill) * Player.GloveDamageModifier;
         Damage = BaseDamage * _skillBook.GetSkillLevel(_slushWeaponSkill) / 10f;
-        FreezeTime = 4 + _skillBook.GetSkillLevel(_slushWeaponSkill) / 25f;
+        FreezeTime = 4f + _skillBook.GetSkillLevel(_slushWeaponSkill) / 25f;
     }
 
     public override void Shoot(Player player)

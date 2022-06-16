@@ -2,6 +2,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Image))]
+
 public class WaveCompletedPanel : MonoBehaviour
 {
     [SerializeField] private TMP_Text _earnedSugarText;

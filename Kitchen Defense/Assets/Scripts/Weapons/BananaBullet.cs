@@ -21,7 +21,7 @@ public class BananaBullet : BananaWeapon
     {
         _audioSource.Play();
         _animator = GetComponent<Animator>();
-        StartCoroutine(BulletLifeTime());
+        Destroy(gameObject, 2.1f);
         _animator.Play(_bananaTraectoryAnimationName);
         _particleSystem = _bananaSplash.GetComponent<ParticleSystem>();
         _canvas = Camera.main.GetComponent<ObjectFinder>().GetCanvas();
@@ -49,11 +49,5 @@ public class BananaBullet : BananaWeapon
                 _damageTakenText.SetTextValue(BulletDamage);
             }
         }
-    }
-
-    private IEnumerator BulletLifeTime()
-    {
-        Destroy(gameObject, 2.1f);
-        yield return null;
     }
 }

@@ -1,20 +1,18 @@
 using UnityEngine;
 
 [RequireComponent(typeof(DieState))]
+[RequireComponent(typeof(Enemy))]
 
 public class EnemyDieTransition : Transition
 {
-    private Enemy _enemy;
     private DieState _dieState;
+    private Enemy _enemy;
+
     private void Awake()
     {
         _enemy = GetComponent<Enemy>();
-        _enemy.EnemyIsDead += OnEnemyDead;
+        _enemy.IsDead += OnEnemyDead;
         _dieState = GetComponent<DieState>();
-    }
-
-    private void Start()
-    {
     }
 
     private void Update()

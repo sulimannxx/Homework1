@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(Image))]
 
-public class BuyWeaponButton : MonoBehaviour
+public class BuyWeaponButton : ShopButton
 {
     [SerializeField] private Player _player;
     [SerializeField] private Weapon _weapon;
@@ -13,9 +13,6 @@ public class BuyWeaponButton : MonoBehaviour
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private ProgressSaveManager _progressSaveManager;
     [SerializeField] private int _weaponId;
-
-    private Color _enoughMoneyColor = new Color(0.7311321f, 1, 0.7647856f, 1);
-    private Color _notEnoughMoneyColor = new Color(0.990566f, 0.4251958f, 0.4703167f, 1);
 
     public int WeaponPrice => _weaponPrice;
 
@@ -48,11 +45,11 @@ public class BuyWeaponButton : MonoBehaviour
     {
         if (_player.Money >= _weaponPrice && _weapon.IsBought == false)
         {
-            _image.color = _enoughMoneyColor;
+            _image.color = EnoughMoneyColor;
         }
         else
         {
-            _image.color = _notEnoughMoneyColor;
+            _image.color = NotEnoughMoneyColor;
         }
     }
 

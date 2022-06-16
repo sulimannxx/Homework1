@@ -17,7 +17,7 @@ public class BananaWeapon : Weapon
         _player = Camera.main.GetComponent<ObjectFinder>().GetPlayer();
         _skillBook = _player.GetComponent<SkillBook>();
         _skillBook.SkillLevelChanged += OnSkillLevelChanged;
-        BaseDamage = 0.5f + _player.SpellBook.GetSkillLevel(_baseDamageSkill) * _player.GloveDamageModifier;
+        BaseDamage = 10f + _player.SpellBook.GetSkillLevel(_baseDamageSkill) * _player.GloveDamageModifier;
         Damage = BaseDamage * _skillBook.GetSkillLevel(_bananaWeaponSkill) * 0.75f;
     }
 
@@ -30,7 +30,7 @@ public class BananaWeapon : Weapon
 
     public override void OnSkillLevelChanged()
     {
-        BaseDamage = 0.5f + _player.SpellBook.GetSkillLevel(_baseDamageSkill) * _player.GloveDamageModifier;
+        BaseDamage = 10f + _player.SpellBook.GetSkillLevel(_baseDamageSkill) * _player.GloveDamageModifier;
         Damage = BaseDamage * _skillBook.GetSkillLevel(_bananaWeaponSkill) * 0.75f;
     }
 

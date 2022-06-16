@@ -34,14 +34,14 @@ public class Spawner : MonoBehaviour
     {
         Enemy enemy = Instantiate(_currentWave.Template[Random.Range(0, _currentWave.Template.Length)], _spawnPoint.position, Quaternion.identity, _spawnPoint).GetComponent<Enemy>();
         enemy.Init(_player);
-        enemy.EnemyIsDead += OnEnemyDead;
+        enemy.IsDead += OnEnemyDead;
         _spawnedEnemies.Add(enemy.gameObject);
         _currentWave.RecalculateRandomSpawnTime();
     }
 
     private void OnEnemyDead(Enemy enemy)
     {
-        enemy.EnemyIsDead -= OnEnemyDead;
+        enemy.IsDead -= OnEnemyDead;
         _player.AddMoney(enemy.GetReward());
         _currentWave.DeadEnemies--;
 

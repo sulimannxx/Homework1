@@ -3,6 +3,7 @@ using UnityEngine.Events;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(SpriteRenderer))]
 
 public class CutterEnemy : Enemy
 {
@@ -18,8 +19,8 @@ public class CutterEnemy : Enemy
 
     protected float Speed;
 
-    public override event UnityAction<Enemy> EnemyIsDead;
-    public override event UnityAction<Enemy> EnemyIsHit;
+    public override event UnityAction<Enemy> IsDead;
+    public override event UnityAction<Enemy> IsHit;
 
     public int EnemyReward { get; private set; }
 
@@ -46,11 +47,11 @@ public class CutterEnemy : Enemy
     {
         _health -= damage;
         CurrentHealth = _health;
-        EnemyIsHit?.Invoke(this);
+        IsHit?.Invoke(this);
 
         if (_health <= 0)
         {
-            EnemyIsDead?.Invoke(this);
+            IsDead?.Invoke(this);
             _boxCollider.enabled = false;
         }
     }

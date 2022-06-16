@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BuyGloveButton : MonoBehaviour
+public class BuyGloveButton : ShopButton
 {
     [SerializeField] private Player _player;
     [SerializeField] private Sprite _gloveSkin;
@@ -24,9 +24,6 @@ public class BuyGloveButton : MonoBehaviour
 
     public bool SkinIsBought { get; private set; } = false;
 
-    private Color _enoughMoneyColor = new Color(0.7311321f, 1, 0.7647856f, 1);
-    private Color _notEnoughMoneyColor = new Color(0.990566f, 0.4251958f, 0.4703167f, 1);
-
     private void Start()
     {
         RecountIfPlayerHasEnoughMoney();
@@ -42,11 +39,11 @@ public class BuyGloveButton : MonoBehaviour
         {
             if (_player.Money >= _glovePriceInCoins && _player.PieCoins >= _glovePriceInPies)
             {
-                _image.color = _enoughMoneyColor;
+                _image.color = EnoughMoneyColor;
             }
             else
             {
-                _image.color = _notEnoughMoneyColor;
+                _image.color = NotEnoughMoneyColor;
             }
         }
     }
@@ -71,7 +68,7 @@ public class BuyGloveButton : MonoBehaviour
             Destroy(_moneyIcon.gameObject);
             Destroy(_moneyText.gameObject);
             _useText.SetActive(true);
-            _image.color = _enoughMoneyColor;
+            _image.color = EnoughMoneyColor;
             _progressSaveManager.PlayerProfile.CurrentSkinId = _skinId;
             _progressSaveManager.PlayerProfile.BoughtSkinsId.Add(_skinId);
         }
@@ -99,7 +96,7 @@ public class BuyGloveButton : MonoBehaviour
             Destroy(_pieText.gameObject);
             _useText.SetActive(true);
             RecountIfPlayerHasEnoughMoney();
-            _image.color = _enoughMoneyColor;
+            _image.color = EnoughMoneyColor;
             _progressSaveManager.PlayerProfile.CurrentSkinId = _skinId;
             _progressSaveManager.PlayerProfile.BoughtSkinsId.Add(_skinId);
         }
@@ -125,7 +122,7 @@ public class BuyGloveButton : MonoBehaviour
             Destroy(_moneyText.gameObject);
             _useText.SetActive(true);
             RecountIfPlayerHasEnoughMoney();
-            _image.color = _enoughMoneyColor;
+            _image.color = EnoughMoneyColor;
             _progressSaveManager.PlayerProfile.CurrentSkinId = _skinId;
             _progressSaveManager.PlayerProfile.BoughtSkinsId.Add(_skinId);
         }

@@ -39,7 +39,7 @@ public class SugarFarm : Utility
         this.gameObject.SetActive(true);
     }
 
-    public override bool Bought(bool state)
+    public override bool EnableUtility(bool state)
     {
         if (state == true)
         {

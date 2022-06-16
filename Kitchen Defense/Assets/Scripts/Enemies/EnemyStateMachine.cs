@@ -1,5 +1,7 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Enemy))]
+
 public class EnemyStateMachine : MonoBehaviour
 {
     [SerializeField] private State _firstState;
@@ -7,8 +9,6 @@ public class EnemyStateMachine : MonoBehaviour
     private Player _target;
     private Enemy _enemy;
     private State _currentState;
-
-    public State CurrentState => _currentState;
 
     private void Start()
     {

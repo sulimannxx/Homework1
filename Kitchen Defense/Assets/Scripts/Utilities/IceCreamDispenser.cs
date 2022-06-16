@@ -38,20 +38,21 @@ public class IceCreamDispenser : Utility
 
     private IEnumerator IceCreamHeal()
     {
-        yield return new WaitForSeconds(Random.Range(_minRandomTimeValue, _maxRandomTimeValue));
-
-        if (_player.isActiveAndEnabled)
+        while (true)
         {
-            _animator.Play(_defaultDispenserAnimationName);
-            _animator.Play(_dispenserAnimationName);
-            _iceCream = Instantiate(_iceCreamTemplate, transform.parent);
-            HealPower = Random.Range(WaveController.GameWave / 10f, WaveController.GameWave / 5f);
-            _player.Heal(HealPower);
-            _text.gameObject.SetActive(true);
-            Destroy(_iceCream, 1);
-        }
+            yield return new WaitForSeconds(Random.Range(_minRandomTimeValue, _maxRandomTimeValue));
 
-        StartCoroutine(IceCreamHeal());
+            if (_player.isActiveAndEnabled)
+            {
+                _animator.Play(_defaultDispenserAnimationName);
+                _animator.Play(_dispenserAnimationName);
+                _iceCream = Instantiate(_iceCreamTemplate, transform.parent);
+                HealPower = Random.Range(WaveController.GameWave / 10f, WaveController.GameWave / 5f);
+                _player.Heal(HealPower);
+                _text.gameObject.SetActive(true);
+                Destroy(_iceCream, 1);
+            }
+        }
     }
 
     private void EnableDispenser()
@@ -59,7 +60,7 @@ public class IceCreamDispenser : Utility
         this.gameObject.SetActive(true);
     }
 
-    public override bool Bought(bool state)
+    public override bool EnableUtility(bool state)
     {
         if (state == true)
         {

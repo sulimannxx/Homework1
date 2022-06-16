@@ -7,6 +7,8 @@ public class SolidWall : Utility
     [SerializeField] private SolidWall _solidWall;
     [SerializeField] private Player _player;
     [SerializeField] private Transform _solidWallDestroyEffectPoint;
+    [SerializeField] private AudioSource _playerHitAudioSource;
+    [SerializeField] private AudioClip[] _playerHitSounds;
 
     private float _health;
 
@@ -42,6 +44,8 @@ public class SolidWall : Utility
     public void ApplyDamage(float damage)
     {
         _health -= damage;
+        _playerHitAudioSource.clip = _playerHitSounds[Random.Range(0, _playerHitSounds.Length)];
+        _playerHitAudioSource.Play();
         WallIsHit?.Invoke();
 
         if (_health <= 0)
@@ -53,7 +57,7 @@ public class SolidWall : Utility
         }
     }
 
-    public override bool Bought(bool state)
+    public override bool EnableUtility(bool state)
     {
         if (state == true)
         {

@@ -13,7 +13,7 @@ public class HpSlider : MonoBehaviour
 
     private void Start()
     {
-        _enemy.EnemyIsHit += ChangeSliderHpValue;
+        _enemy.IsHit += ChangeSliderHpValue;
     }
 
     private void Update()
@@ -29,6 +29,6 @@ public class HpSlider : MonoBehaviour
 
     private void OnDestroy()
     {
-        _enemy.EnemyIsHit -= ChangeSliderHpValue;
+        _enemy.IsHit -= ChangeSliderHpValue;
     }
 }

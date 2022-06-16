@@ -17,7 +17,7 @@ public class EclairWeapon : Weapon
         _player = Camera.main.GetComponent<ObjectFinder>().GetPlayer();
         _skillBook = _player.GetComponent<SkillBook>();
         _skillBook.SkillLevelChanged += OnSkillLevelChanged; 
-        BaseDamage = 5 + _player.SpellBook.GetSkillLevel(_baseDamageSkill) * _player.GloveDamageModifier;
+        BaseDamage = 25f + _player.SpellBook.GetSkillLevel(_baseDamageSkill) * _player.GloveDamageModifier;
         Damage = BaseDamage * _skillBook.GetSkillLevel(_eclairWeaponSkill);
     }
     public override void Init(Player player)
@@ -29,7 +29,7 @@ public class EclairWeapon : Weapon
 
     public override void OnSkillLevelChanged()
     {
-        BaseDamage = 5 + _player.SpellBook.GetSkillLevel(_baseDamageSkill) * _player.GloveDamageModifier;
+        BaseDamage = 25f + _player.SpellBook.GetSkillLevel(_baseDamageSkill) * _player.GloveDamageModifier;
         Damage = BaseDamage * _skillBook.GetSkillLevel(_eclairWeaponSkill);
     }
 

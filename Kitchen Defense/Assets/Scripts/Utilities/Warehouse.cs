@@ -42,11 +42,11 @@ public class Warehouse : Utility
             case 1:
                 MaxCapacity = 100;
                 break;
-            
+
             case 2:
                 MaxCapacity = 500;
                 break;
-            
+
             case 3:
                 MaxCapacity = 1700;
                 break;
@@ -112,29 +112,32 @@ public class Warehouse : Utility
         this.gameObject.SetActive(true);
     }
 
-    public override bool Bought(bool state)
+    public override bool EnableUtility(bool state)
     {
-        if (state == true && _player.SpellBook.GetSkillLevel(_warehouseSkillName) < MaxLevel)
+        var playerLvl = _player.SpellBook.GetSkillLevel(_warehouseSkillName);
+        if (state)
         {
-            EnableWarehouse();
-            _player.SpellBook.IncreaseSkillLevel(_warehouseSkillName);
-            RecountMaxCapacity();
+            if (playerLvl < MaxLevel)
+            {
+                EnableWarehouse();
+                _player.SpellBook.IncreaseSkillLevel(_warehouseSkillName);
+                _player.SpellBook.RecountSkillPrice(_warehouseSkillName);
+                RecountMaxCapacity();
+                return IsBought = false;
+            }
 
-            if (_player.SpellBook.GetSkillLevel(_warehouseSkillName) == MaxLevel)
+            if (playerLvl == MaxLevel)
             {
                 return IsBought = true;
             }
-
-            return IsBought = false;
-        }
-        else if (state == true && _player.SpellBook.GetSkillLevel(_warehouseSkillName) == MaxLevel)
-        {
-            return IsBought = true;
         }
         else
         {
             return IsBought = false;
+
         }
+
+        return IsBought;
     }
 
     public override void Init()

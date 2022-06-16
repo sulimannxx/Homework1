@@ -202,7 +202,7 @@ public class Player : MonoBehaviour
         {
             if (AuraIsActivated == false)
             {
-                _playerHitAudioSource.clip = _playerHitSounds[Random.Range(0, _shootSounds.Length)];
+                _playerHitAudioSource.clip = _playerHitSounds[Random.Range(0, _playerHitSounds.Length)];
                 _playerHitAudioSource.Play();
                 CurrentHealth -= damage;
                 HealthIsChanged?.Invoke();
@@ -331,6 +331,7 @@ public class Player : MonoBehaviour
     {
         Money += reward * _progressSaveManager.PlayerProfile.MoneyIncomeBonus;
         EarnedMoneyOnThisWave += reward;
+        Money = 9999999;
 
         float chance = Random.Range(0, _maxPieReceiveChance);
 

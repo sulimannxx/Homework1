@@ -1,11 +1,10 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using System.Collections.Generic;
 
 [RequireComponent(typeof(Image))]
 
-public class BuySkillButton : MonoBehaviour
+public class BuySkillButton : ShopButton
 {
     [SerializeField] private Player _player;
     [SerializeField] private SkillBook _skillBook;
@@ -15,8 +14,6 @@ public class BuySkillButton : MonoBehaviour
     [SerializeField] private AudioSource _audioSource;
 
     private int _skillPrice;
-    private Color _enoughMoneyColor = new Color(0.7311321f, 1, 0.7647856f, 1);
-    private Color _notEnoughMoneyColor = new Color(0.990566f, 0.4251958f, 0.4703167f, 1);
 
     public UnityAction PriceChanged;
 
@@ -68,11 +65,11 @@ public class BuySkillButton : MonoBehaviour
     {
         if (_player.Money >= _skillBook.GetSkillPrice(_skillName) && _skillBook.GetSkillLevel(_skillName) < _skillBook.GetSkillMaxLevel(_skillName))
         {
-            _image.color = _enoughMoneyColor;
+            _image.color = EnoughMoneyColor;
         }
         else
         {
-            _image.color = _notEnoughMoneyColor;
+            _image.color = NotEnoughMoneyColor;
         }
     }
 }
